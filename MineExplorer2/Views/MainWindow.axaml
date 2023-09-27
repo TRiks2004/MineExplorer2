@@ -1,0 +1,65 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MineExplorer2.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MineExplorer2.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Title="MineExplorer"
+        >
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel/>
+    </Design.DataContext>
+    <Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="2"/>
+            
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+        
+        
+    <ComboBox Grid.Column="0" ItemsSource="{Binding Disk}" 
+              DisplayMemberBinding="{Binding NameFile}"
+              SelectionChanged="Combobox_OnSelectionChanged">
+    </ComboBox>
+        
+        
+    <ListBox Grid.Column="1" 
+             ItemsSource="{Binding Folder}" 
+             SelectedItems="{Binding SelectDirectory}"
+             SelectionChanged="SelectingItemsControl_OnSelectionChanged">
+            
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel>
+                    <TextBlock Text="{Binding NameFile}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+        
+        
+        
+    <GridSplitter Grid.Column="2"></GridSplitter>
+        
+    <ListBox Grid.Column="3" ItemsSource="{Binding File}" >
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel>
+                    <TextBlock Text="{Binding NameFile}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+    
+    </Grid>
+</Window>
